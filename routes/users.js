@@ -5,7 +5,6 @@ const {
 } = require('../constants')
 const {db} = require('../database')
 const {middleware: requiresToken} = require('../utils/token')
-const generateSalt = require('pify')(require('crypto').randomBytes)
 
 const isValid = ({email, password} = {}) =>
 	typeof email === 'string' &&
@@ -25,7 +24,7 @@ module.exports = [
 			if (await isEmailRegistered(req.body.email)) throw email_taken
 			const {password} = req.body
 			req.body.password = undefined
-			req.body.hash = await hash(password, await generateSalt(32))
+			req.body.hash = await hash(password)
 			next()
 		}),
 	],
