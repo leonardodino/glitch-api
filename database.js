@@ -30,7 +30,7 @@ fs.unlink(sock, err => {
 	if (err && err.code !== 'ENOENT') throw err
 	server.listen(sock, err => {
 		if (err) throw err
-		console.log('successfully connected to database')
+		console.log(`local database: unix:${sock}`)
 	})
 })
 

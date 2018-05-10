@@ -19,5 +19,6 @@ if (require.main === module) {
 				? `app is running: https://${process.env.PROJECT_DOMAIN}.glitch.me/`
 				: `app is running: ${app.get('root')}/`,
 		)
+		console.log(`bind on [${server.address().family}]: ${app.get('root')}/`)
 	})
 }
