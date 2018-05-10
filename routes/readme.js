@@ -3,14 +3,15 @@ const marked = require('marked')
 
 const text = fs.readFileSync('README.md').toString('utf8')
 const css = fs.readFileSync('./main.css').toString('utf8')
+const [{text: title}] = marked.lexer(text)
 const html = `
   <html>
     <head>
-      <title>MOCK API</title>
+      <title>${title}</title>
       <style>${`\n${css}`.replace(/(.+)/g, '        $1')}
       </style>
     </head>
-    <body>${marked(text)}</body>
+    <body><div id="container">${marked(text)}</div></body>
   </html>
 `
 
