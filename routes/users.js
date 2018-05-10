@@ -3,7 +3,7 @@ const wrap = require('express-async-handler')
 const {
 	errors: {parameter_missing, email_taken},
 } = require('../constants')
-const {db, server} = require('../database')
+const {db} = require('../database')
 const {middleware: requiresToken} = require('../utils/token')
 const generateSalt = require('pify')(require('crypto').randomBytes)
 

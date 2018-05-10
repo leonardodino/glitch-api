@@ -2,6 +2,7 @@ const fs = require('fs')
 const {join} = require('path')
 const request = require('got')
 const {router: createRouter, create} = require('json-server')
+const {EventEmitter} = require('events')
 const database = join(__dirname, 'db.json')
 const sock = '/tmp/database.sock'
 const methods = ['get', 'post', 'put', 'delete', 'patch']
@@ -24,18 +25,17 @@ const enhance = app =>
 		})
 		.use(router)
 
-const server = enhance(create())
-
 fs.unlink(sock, err => {
 	if (err && err.code !== 'ENOENT') throw err
-	server.listen(sock, err => {
+	const server = enhance(create()).listen(sock, err => {
 		if (err) throw err
 		console.log(`local database: unix:${sock}`)
+		module.exports.server.emit('ready', server)
 	})
 })
 
 module.exports = enhance
-module.exports.server = server
+module.exports.server = new EventEmitter()
 module.exports.db = methods.reduce((object, method) => {
 	object[method] = async (_path, options) => {
 		const path = `/${_path}`.replace(/^\/\//, '/')

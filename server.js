@@ -22,3 +22,5 @@ if (require.main === module) {
 		console.log(`bind on [${server.address().family}]: ${app.get('root')}/`)
 	})
 }
+
+module.exports = app

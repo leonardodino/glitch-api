@@ -1,6 +1,7 @@
 language: node_js
 node_js: '10'
-script: sync-glitch
+script: npm test
+after_success: sync-glitch
 env:
     global:
       - GLITCH_PROJECT_ID=426613d8-be19-4498-bdd1-3794a4fc7031

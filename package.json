@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "glitch hosted mock api",
   "private": true,
+  "main": "server.js",
   "scripts": {
+    "test": "dotenv node test",
     "format": "prettier --write *.js *.json",
     "precommit": "pretty-quick --staged",
     "start": "node server.js",
