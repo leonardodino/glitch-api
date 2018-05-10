@@ -1,0 +1,13 @@
+language: node_js
+node_js: '10'
+script: sync-glitch
+env:
+  - GLITCH_PROJECT_ID="426613d8-be19-4498-bdd1-3794a4fc7031"
+  - GH_REPO="leonardodino/glitch-api"
+
+branches:
+  only:
+    - master
+
+notifications:
+  email: false
