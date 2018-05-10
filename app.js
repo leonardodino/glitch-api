@@ -47,16 +47,18 @@ const logging = app =>
 
 const protocol = app =>
 	app
-		// .set('trust proxy', true)
+		.set('trust proxy', true)
 		.set('json spaces', 2)
 		.use(require('cors')())
-		// .use(require('helmet')({hsts: {preload: true}}))
+		.use(require('helmet')({hsts: {preload: true}}))
 		.use(require('helmet').referrerPolicy())
 		.use(require('helmet').noCache())
-		// .use((req, res, next) => req.secure
-		//   ? next()
-		//   : res.redirect(301, `https://${req.get('host')}${req.originalUrl}`)
-		// )
+		.use(
+			(req, res, next) =>
+				req.secure
+					? next()
+					: res.redirect(301, `https://${req.get('host')}${req.originalUrl}`),
+		)
 		.use(require('express').json({strict: true, extended: false}))
 		.use(require('express').urlencoded({extended: false}))
 		.use(
