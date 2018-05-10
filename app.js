@@ -80,8 +80,8 @@ const patches = app =>
 					console.log('not ok')
 					return send.apply(res, args)
 				}
-
 				res.send = send.bind(res)
+				req.headers['x-request-success-status'] = 201
 				require('http-proxy')
 					.createProxyServer()
 					.web(req, res, {

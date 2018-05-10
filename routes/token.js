@@ -51,7 +51,8 @@ module.exports = [
 		(req, res, next) => {
 			try {
 				const token = createToken(req.get('host'), req.user_id)
-				return res.status(200).structured({
+				const status = +(req.get('X-Request-Success-Status') || 200)
+				return res.status(status).structured({
 					json: {token, scheme: 'Bearer'},
 					text: token,
 					html: `<pre>${token}</pre>`,
