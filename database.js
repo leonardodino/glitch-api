@@ -48,8 +48,5 @@ module.exports.db = methods.reduce((object, method) => {
 		})
 		return res.body
 	}
-	// object[method] = (path, options) => request.get(
-	//   `unix:${sock}:${path}`, {...options, json: true},
-	// ).then(req => req.body)
 	return object
 }, {})
