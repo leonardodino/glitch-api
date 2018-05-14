@@ -50,12 +50,13 @@ module.exports = [
 		login,
 		(req, res, next) => {
 			try {
-				const token = createToken(req.get('host'), req.user_id)
+				const {user_id: id} = req
+				const token = createToken(req.get('host'), id)
 				const status = +(req.get('X-Request-Success-Status') || 200)
 				return res.status(status).structured({
-					json: {token, scheme: 'Bearer'},
-					text: token,
-					html: `<pre>${token}</pre>`,
+					json: {token, id, scheme: 'Bearer'},
+					text: `${id}\n${token}`,
+					html: `<pre>${id}\n${token}</pre>`,
 				})
 			} catch (e) {
 				next(e)
