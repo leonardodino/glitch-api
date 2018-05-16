@@ -35,7 +35,7 @@ const credentials = (req, res, next) => {
 const login = wrap(async (req, res, next) => {
 	const error = handleError(req, res, next)
 	const {email, password} = req.credentials
-	const [{hash, id} = {}] = await db.get(`users?email=${email}`)
+	const [{hash, id} = {}] = await db.get(`users?email=${email.toLowerCase()}`)
 	if (!hash) return error(auth_wrong)
 	if (!(await verify(hash, password))) return error(auth_wrong)
 	req.user_id = id

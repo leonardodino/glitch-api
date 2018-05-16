@@ -22,7 +22,8 @@ module.exports = [
 		wrap(async (req, res, next) => {
 			if (!isValid(req.body)) throw parameter_missing
 			if (await isEmailRegistered(req.body.email)) throw email_taken
-			const {password} = req.body
+			const {password, email} = req.body
+			req.body.email = email.toLowerCase()
 			req.body.password = undefined
 			req.body.hash = await hash(password)
 			next()
